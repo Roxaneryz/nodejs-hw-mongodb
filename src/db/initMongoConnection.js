@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import dotenv from 'dotenv';
 
-dotenv.config;  // Завантаження змінних оточення з файлу .env
+dotenv.config();  // Завантаження змінних оточення з файлу .env
 
 
 // Отримання змінних оточення
