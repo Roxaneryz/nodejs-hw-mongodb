@@ -13,16 +13,14 @@ export const setupServer = () => {
 
   app.use(cors()); // Налаштування CORS
 
+  app.get('/contacts', getContacts);
+
+  app.get('/contacts/:contactId', getContactById);
+
   // Обробка неіснуючих роутів
   app.use((req, res, next) => {
     res.status(404).json({ message: 'Not found' });
   });
-
-
- app.get('/contacts', getContacts);
-
-    app.get('/contacts/:contactId', getContactById);
-
 
   const PORT = process.env.PORT || 3000; // Визначення порта
 
