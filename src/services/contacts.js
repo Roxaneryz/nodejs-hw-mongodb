@@ -1,4 +1,4 @@
-import { Contact } from '../models/conatcts.js';
+import { Contact } from '../models/contacts.js';
 
 export const getAllContacts = async () => {
   try {
@@ -27,7 +27,7 @@ export const createContactService = async (contact) => {
 
 };
 export const updateContactService = async (id, contact) => {
-  const result = await Contact.findByIdAndUpdate(id, contact);
+  const result = await Contact.findOneAndUpdate({_id:id}, contact, {new:true});
   return result;
 
 };

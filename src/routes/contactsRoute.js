@@ -12,3 +12,6 @@ router.delete('/contacts/:contactId', ctrlWrapper(deleteContact));
 
 
 export default router;
+
+
+// jsonParser;

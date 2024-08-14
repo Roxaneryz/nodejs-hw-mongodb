@@ -1,7 +1,8 @@
 import { isHttpError } from "http-errors";
 
 
-export const errorHandler = async (error, req, res) => {
+// eslint-disable-next-line no-unused-vars
+export const errorHandler = async (error, req, res, next) => {
     if (isHttpError(error) === true) {
         return res.status(error.status).send({
             status: error.status,
@@ -10,5 +11,5 @@ export const errorHandler = async (error, req, res) => {
     }
     console.error(error);
 
-    res.status(500).send({ status: 500, message: "Internal Server Error" });
+    res.status(500).send({ status: 500, message: 'Something went wrong', data: error });
 };

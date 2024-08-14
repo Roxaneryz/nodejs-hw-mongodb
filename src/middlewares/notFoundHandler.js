@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 export const notFoundHandler = (req, res, next) => {
-    res.status(404).send({ status: 404, message: "Not Found" });
+    res.status(404).send({ status: 404, message: "Route Not Found" });
 };
