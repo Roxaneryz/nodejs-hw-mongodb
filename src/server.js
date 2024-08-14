@@ -2,7 +2,7 @@ import express from 'express';
 import cors from "cors";
 import pino from "pino";
 import pinoHttp from 'pino-http';
-
+import router from "./routes/contactsRoute.js";
 
 
 export const setupServer = () => {
@@ -13,7 +13,7 @@ export const setupServer = () => {
 
   app.use(cors()); // Налаштування CORS
 
-
+  app.use(router);
 
   // Обробка неіснуючих роутів
   // app.use((req, res, next) => {
