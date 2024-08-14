@@ -18,10 +18,13 @@ export const getContacts = async (req, res) => {
 };
 
 export const getContactById = async (req, res) => {
+console.log("Hello");
 
     let contactId;
   try {
-     contactId  = req.params;
+    contactId = req.params.contactId;
+    console.log(req.params);
+
     const contact = await getConatctByIdDB(contactId);
 
     if (!contact) {

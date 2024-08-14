@@ -1,5 +1,5 @@
 import { Contact } from "../models/conatcts.js";
-
+import mongoose from "mongoose";
 export const getAllContacts = async () => {
     try {
       const contacts = await Contact.find({});
@@ -11,12 +11,12 @@ export const getAllContacts = async () => {
 };
 
 export const getConatctByIdDB = async (id) => {
-    try {
-        const contact = await Contact.findById(id);
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+throw new Error('Invalid Id');
+    }
+    const contact = await Contact.findById(id);
+   
+
         return contact;
 
-    } catch (error) {
-        console.error(`Error while fetching contact with id ${id}:`, error);
-        throw new Error('Error while fetching contact');
-    }
 };
