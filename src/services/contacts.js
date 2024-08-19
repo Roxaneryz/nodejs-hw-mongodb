@@ -1,7 +1,15 @@
 import { Contact } from '../models/contacts.js';
 
-export const getAllContacts = async () => {
+export const getAllContacts = async ({page, perPage}) => {
   try {
+
+    const skip = page > 0 ? (page - 1) * perPage: 0;
+
+    const [count, contactscouner] = await PromiseAll([
+      Contact.countDocuments(contacts);
+    ])
+
+
     const contacts = await Contact.find({});
     return contacts;
   } catch (error) {
