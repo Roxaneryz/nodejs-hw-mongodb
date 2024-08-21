@@ -13,15 +13,15 @@ const parseSortBy = (maybeSortBy) => {
     return "_id";
 };
 
-const parseSortOrder = (maybeSortBy) => {
-    if (typeof maybeSortBy !== "string") {
-        return SORT_ORDER.ASC;
-    }
-
-    if ([SORT_ORDER.ASC, SORT_ORDER.DESC].includes(maybeSortOrder)) {
-        return maybeSortOrder;
-    }
+const parseSortOrder = (maybeSortOrder) => {
+  if (typeof maybeSortBy !== 'string') {
     return SORT_ORDER.ASC;
+  }
+
+  if ([SORT_ORDER.ASC, SORT_ORDER.DESC].includes(maybeSortOrder)) {
+    return maybeSortOrder;
+  }
+  return SORT_ORDER.ASC;
 };
 
 export const parseSortParams = (query) => {
@@ -29,4 +29,10 @@ export const parseSortParams = (query) => {
 
     const parsedSortBy = parseSortBy(sortBy);
     const parsedSortOrder = parseSortOrder(sortOrder);
+
+
+    return {
+      sortBy: parsedSortBy,
+      sortOrder: parsedSortOrder,
+    };
 };
