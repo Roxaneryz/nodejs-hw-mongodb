@@ -1,20 +1,22 @@
-// import { SORT_ORDER } from '../constants/index.js';
+
+import { SORT_ORDER } from '../constants/index.js';
 import { Contact } from '../models/contacts.js';
 
-export const getAllContacts = async ({page, perPage, sortBy, sortOrder, filter}) => {
+export const getAllContacts = async ({page= 1, perPage= 10, sortBy= "_id", sortOrder= SORT_ORDER.ASC, filter={}}) => {
   try {
 
     const skip = page > 0 ? (page - 1) * perPage : 0;
 
     const contactQuery = Contact.find();
 
- if (filter.contactType) {
-   contactQuery.where('contactType').equals(filter.contactType);
- }
+    if (filter.contactType !== "undefined") {
+      contactQuery.where("contactType").equals(filter.contactType);
+    }
 
- if (typeof filter.isFavourite !== 'undefined') {
-   contactQuery.where('isFavourite').equals(filter.isFavourite);
- }
+    if (typeof filter.isFavourite !== "undefined") {
+      contactQuery.where("isFavourite").equals(filter.isFavourite);
+    }
+
 
     // if (typeof filter.minYear !== "undefined") {
     //   return contactQuery.where("year").gte(filter.minYear);
