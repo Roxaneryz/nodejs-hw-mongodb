@@ -1,28 +1,38 @@
-const parseNumber = (maybeNumber) => {
-    if (typeof maybeNumber !== "string") {
+const parseContactType = (contactType) => {
+    if (typeof contactType !== "string") {
         return undefined;
     }
+    const isType = ["work", "personal", "home"];
+    return isType.includes(contactType) ? contactType : undefined;
 
-    const parsedNumber = parseInt(maybeNumber);
-    if (Number.isNaN(parsedNumber)) {
-        return undefined;
+
+    // if (isType(contactType)) {
+    //     return contactType;
+    // }
+
+};
+
+const parseBoolean = (value) => {
+    if (typeof value === 'string') {
+        if (value.toLocaleLowerCase() === "true") return true;
+        if (value.toLocaleLowerCase() === "false") return false;
     }
 
-    return parseNumber;
+    // const isBoolean = (boolean) => ["true", "false"].includes(boolean);
+    // if (isBoolean(boolean)) return boolean;
+
 };
 
 
-
-
 export const parseFilterParams = (query) => {
-    const { minYear, maxYear } = query;
+    const { Type, isFavourite } = query;
 
-    const parsedMinYear = parseNumber(minYear);
-    const parsedMaxYear = parseNumber(maxYear);
+    const parsedType = parseContactType (Type);
+    const parsedIsFavourite = parseBoolean(isFavourite);
 
-    return {
-        minYear: parsedMinYear,
-        maxYear: parsedMaxYear
-    };
+   return {
+     type: parsedType,
+     isFavourite: parsedIsFavourite,
+   };
 
 };

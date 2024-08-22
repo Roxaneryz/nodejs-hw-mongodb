@@ -2,15 +2,18 @@
 import { SORT_ORDER } from '../constants/index.js';
 import { Contact } from '../models/contacts.js';
 
-export const getAllContacts = async ({page= 1, perPage= 10, sortBy= "_id", sortOrder= SORT_ORDER.ASC, filter={}}) => {
+export const getAllContacts = async ({ page = 1, perPage = 10, sortBy = "_id", sortOrder = SORT_ORDER.ASC, filter = {} }) => {
+
+  console.log(filter);
+
   try {
 
     const skip = page > 0 ? (page - 1) * perPage : 0;
 
     const contactQuery = Contact.find();
 
-    if (filter.contactType) {
-      contactQuery.where("contactType").equals(filter.contactType);
+    if (filter.Type) {
+      contactQuery.where("contactType").equals(filter.Type);
     }
 
     if (typeof filter.isFavourite !== "undefined") {
