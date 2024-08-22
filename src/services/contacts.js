@@ -9,7 +9,7 @@ export const getAllContacts = async ({page= 1, perPage= 10, sortBy= "_id", sortO
 
     const contactQuery = Contact.find();
 
-    if (filter.contactType !== "undefined") {
+    if (filter.contactType) {
       contactQuery.where("contactType").equals(filter.contactType);
     }
 
