@@ -12,7 +12,7 @@ export const getAllContacts = async ({ page = 1, perPage = 10, sortBy = "_id", s
 
     const contactQuery = Contact.find();
 
-    if (filter.totalItemsype) {
+    if (filter.type) {
       contactQuery.where("contactType").equals(filter.type);
     }
 
