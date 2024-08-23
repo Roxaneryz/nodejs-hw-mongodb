@@ -12,8 +12,8 @@ export const getAllContacts = async ({ page = 1, perPage = 10, sortBy = "_id", s
 
     const contactQuery = Contact.find();
 
-    if (filter.Type) {
-      contactQuery.where("contactType").equals(filter.Type);
+    if (filter.totalItemsype) {
+      contactQuery.where("contactType").equals(filter.type);
     }
 
     if (typeof filter.isFavourite !== "undefined") {
