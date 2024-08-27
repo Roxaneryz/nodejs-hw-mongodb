@@ -5,10 +5,13 @@ import pino from "pino";
 import router from "./routes/contactsRoute.js";
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
-import { authRouter } from'./routers/auth';
+import authRouter  from './routes/auth.js';
+import cookieParser from 'cookie-parser';
 
 export const setupServer = () => {
   const app = express(); // Створення серверу
+
+  app.use(cookieParser());
 
   const logger = pino(); // Налаштування логгера pino
   // app.use(pinoHttp({ logger }));
