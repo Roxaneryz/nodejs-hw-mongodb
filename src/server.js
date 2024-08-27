@@ -5,7 +5,7 @@ import pino from "pino";
 import router from "./routes/contactsRoute.js";
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
-
+import { authRouter } from'./routers/auth';
 
 export const setupServer = () => {
   const app = express(); // Створення серверу
@@ -16,6 +16,9 @@ export const setupServer = () => {
   app.use(cors()); // Налаштування CORS
   app.use(express.json());
   app.use(router);
+
+
+  app.use("/auth", authRouter);
 
   // Обробка неіснуючих роутів
 
