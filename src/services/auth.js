@@ -8,7 +8,7 @@ import { Session } from "../models/session.js";
 export const registerUser = async (user) => {
     const maybeUser = await User.findOne({ email: user.email });
 
-    if (!maybeUser) {
+    if (maybeUser !== null) {
         throw createHttpError(409, "Email already in use");
     };
     user.password = await bcrypt.hash(user.password, 10);
@@ -19,7 +19,7 @@ export const registerUser = async (user) => {
 export const loginUser = async (email, password) => {
     const maybeUser = await User.findOne({ email });
 
-    if (!maybeUser) {
+    if (maybeUser === null) {
         throw createHttpError(404, "User not found");
     }
 
