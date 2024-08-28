@@ -20,12 +20,12 @@ export const loginController = async (req, res) => {
     const { email, password } = req.body;
     const session = await loginUser(email, password);
 
-    res.cookies("refreshToken", session.refreshToken, {
+    res.cookie("refreshToken", session.refreshToken, {
         httpOnly: true,
         expires: session.refreshTokenValidUntil,
     });
 
-    res.cookies("sessionId", session._id, {
+    res.cookie("sessionId", session._id, {
         httpOnly: true,
         expires: session.refreshTokenValidUntil,
     });
