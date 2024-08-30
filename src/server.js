@@ -7,6 +7,8 @@ import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import authRouter  from './routes/auth.js';
 import cookieParser from 'cookie-parser';
+import { auth } from "./middlewares/auth.js";
+
 
 export const setupServer = () => {
   const app = express(); // Створення серверу
@@ -22,6 +24,8 @@ export const setupServer = () => {
 
 
   app.use("/auth", authRouter);
+  
+  app.use("/contacts", auth, router);
 
   // Обробка неіснуючих роутів
 
