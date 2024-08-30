@@ -7,7 +7,7 @@ import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import authRouter  from './routes/auth.js';
 import cookieParser from 'cookie-parser';
-import { auth } from "./middlewares/auth.js";
+import { authenticate } from './middlewares/auth.js';
 
 
 export const setupServer = () => {
@@ -24,8 +24,8 @@ export const setupServer = () => {
 
 
   app.use("/auth", authRouter);
-  
-  app.use("/contacts", auth, router);
+
+  app.use('/contacts', authenticate, router);
 
   // Обробка неіснуючих роутів
 
