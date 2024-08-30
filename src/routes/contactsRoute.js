@@ -4,8 +4,10 @@ import { getContacts, getContactById, createContact, updateContact, deleteContac
 import { validateBody } from "../middlewares/validateBody.js";
 import { createContactSchema, updateContactSchema } from "../validation/contacts.js";
 import { validateID } from "../middlewares/validateID.js";
+import { auth } from "../middlewares/auth.js";
 
- const router = Router();
+const router = Router();
+router.use(auth);
 
 router.get('/contacts', ctrlWrapper (getContacts));
 router.get('/contacts/:contactId', validateID, ctrlWrapper(getContactById));
