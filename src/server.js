@@ -20,12 +20,12 @@ export const setupServer = () => {
 
   app.use(cors()); // Налаштування CORS
   app.use(express.json());
-  app.use(router);
+  // app.use(router);
 
 
   app.use("/auth", authRouter);
 
-  app.use('/contacts', authenticate, router);
+  app.use("/contacts", authenticate, router);
 
   // Обробка неіснуючих роутів
 
