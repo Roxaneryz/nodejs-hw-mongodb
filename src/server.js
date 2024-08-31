@@ -25,7 +25,7 @@ export const setupServer = () => {
 
   app.use("/auth", authRouter);
 
-  app.use("/contacts", authenticate, router);
+  app.use("/", authenticate, router);
 
   // Обробка неіснуючих роутів
 

@@ -83,7 +83,7 @@ export const refreshUserSession = async (sessionId, refreshToken) => {
 
 //     const resetToken = jwt.sing({
 //         sub: user_id,
-//         emai: user.email,
+//         email: user.email,
 //     },
 //         process.env.JWT_SECRET,
 //         { expiresIn: "15m" }
@@ -95,4 +95,35 @@ export const refreshUserSession = async (sessionId, refreshToken) => {
 //         subject: "Reset your password",
 //         html,
 //     });
+// };
+
+// export const resetPassword = async (password, token) => {
+//     try {
+//         const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+//         const user = await User.findOne({ _id, decoded.sub, email: decoded.email });
+
+
+//         if (user === null) {
+//             throw createHttpError(404, "User not found");
+//         }
+
+//         const hashedPassword = await bcrypt.hash(password, 10);
+//         await User.findOneAndUpdate({ _id: user._id },
+//             {password: hashedPassword},
+//         )
+
+
+//     } catch (error) {
+//         if(
+//             error.name === "TokenExpiredError" ||
+//             error.name === "JsonWebTokenError"
+//         )
+//         {
+//             throw createHttpError(401, "Token error");
+//         }
+//         throw error;
+//     }
+
+
 // };
