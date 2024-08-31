@@ -73,18 +73,18 @@ export const refreshController = async (req, res) => {
 
 };
 
-// export const requestResetEmailController = async (req, res) => {
-//     const { email } = req.body;
-//     await requestResetEmail(email);
+export const requestResetEmailController = async (req, res) => {
+    const { email } = req.body;
+    await requestResetEmail(email);
 
-//     res.send({ status: 200, message: "Reset email was send successfully", data: {}});
-// };
+    res.send({ status: 200, message: "Reset email was send successfully", data: {}});
+};
 
-// export const requestPasswordController = async (req, res) => {
-//     const { password, token } = req.body;
+export const requestPasswordController = async (req, res) => {
+    const { password, token } = req.body;
 
-//     await resetPassword(password, token);
+    await resetPassword(password, token);
 
-//     res.send({ status: 200, message: "Password reset successfully", data:{} });
-// };
+    res.send({ status: 200, message: "Password reset successfully", data:{} });
+};
 
