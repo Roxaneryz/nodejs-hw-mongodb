@@ -8,6 +8,8 @@ import { ACCESS_TOKEN_TTL, REFRESH_TOKEN_TTL } from '../constants/index.js';
 import { Session } from "../models/session.js";
 // import { sendMail } from '../utils/sendEmail.js';
 // import jwt from 'jsonwebtoken';
+// import fs from 'node:fs';
+// import handlebars from 'handlebars';
 
 export const registerUser = async (user) => {
     const maybeUser = await User.findOne({ email: user.email });
@@ -89,13 +91,23 @@ export const refreshUserSession = async (sessionId, refreshToken) => {
 //         { expiresIn: "15m" }
 //     );
 
-//     await sendMail({
-//         from: SMTP.FROM_EMAIL,
-//         to: email,
-//         subject: "Reset your password",
-//         html,
-//     });
-// };
+
+//     const templateSource = fs.readFileSync(path.resolve("src/template/reset-path.hbs"), { encoding: "UTF-8" },);
+//     const template = handlebars.compile(templateSource);
+//     const html = template({ name: user.name, resetToken });
+
+//     try {
+
+//         await sendMail({
+//             from: SMTP.FROM_EMAIL,
+//             to: email,
+//             subject: "Reset your password",
+//             html,
+//         });
+//     } catch {
+//         throw createHttpError(500, "Cannot send email");
+//     }
+//     };
 
 // export const resetPassword = async (password, token) => {
 //     try {
