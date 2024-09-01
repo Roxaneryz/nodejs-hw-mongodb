@@ -47,7 +47,7 @@ export const getContactById = async (req, res, next) => {
 
 export const createContact = async (req, res) => {
   // console.log(req.params);
-  const contactUser = { ...req.body, userId: req.use._id };
+  const contactUser = { ...req.body, userId: req.user._id };
 
   const result = await createContactService(contactUser);
 
