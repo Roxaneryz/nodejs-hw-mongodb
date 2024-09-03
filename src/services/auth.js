@@ -5,12 +5,12 @@ import crypto from 'node:crypto';
 import {
   ACCESS_TOKEN_TTL,
   REFRESH_TOKEN_TTL,
-  SMPT,
+  SMTP,
 } from '../constants/index.js';
 
-
+import path from 'node:path';
 import { Session } from "../models/session.js";
-import { sendMail } from '../utils/sendEmail.js';
+import  {sendMail}  from '../utils/sendMail.js';
 import jwt from 'jsonwebtoken';
 import fs from 'node:fs';
 import handlebars from 'handlebars';
@@ -88,13 +88,12 @@ export const requestResetEmail = async (email) => {
     }
 
     const resetToken = jwt.sing({
-        sub: user_id,
+        sub: user._id,
         email: user.email,
     },
         process.env.JWT_SECRET,
         { expiresIn: "15m" }
     );
-
 
     const templateSource = fs.readFileSync(path.resolve("src/template/reset-path.hbs"), { encoding: "UTF-8" },);
     const template = handlebars.compile(templateSource);
@@ -113,11 +112,11 @@ export const requestResetEmail = async (email) => {
     }
     };
 
-export const resetPassword = async (password, token) => {
+export const resetPassword = async ({password, token}) => {
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        const user = await User.findOne({ _id, decoded.sub, email: decoded.email });
+        const user = await User.findOne({ _id: decoded.sub, email: decoded.email });
 
 
         if (user === null) {
@@ -126,8 +125,8 @@ export const resetPassword = async (password, token) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
         await User.findOneAndUpdate({ _id: user._id },
-            {password: hashedPassword},
-        )
+            { password: hashedPassword },
+        );
 
 
     } catch (error) {

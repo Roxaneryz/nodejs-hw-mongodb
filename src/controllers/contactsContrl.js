@@ -3,6 +3,10 @@ import { getAllContacts, getContactByIdDB, createContactService, updateContactSe
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
 import { parseFilterParams } from '../utils/parseFilterParams.js';
+import { uploadToCloudinary } from '../utils/uploadToCloudinary.js';
+
+import * as fs from 'node:fs/promises';
+import path from 'node:path';
 
 export const getContacts = async (req, res) => {
 
@@ -46,8 +50,31 @@ export const getContactById = async (req, res, next) => {
 
 
 export const createContact = async (req, res) => {
+
+  let photo = null;
+
+  if (typeof req.file !== "undefined") {
+    if (process.env.ENABLE_CLOUDINERY === "true") {
+      const result = await uploadToCloudinary(req.file.path);
+      await fs.unlink(req.file.path);
+
+      photo = result.secure_url;
+    } else {
+      await fs.rename(req.file.path, path.resolve("src", "public/avatars", req.file.filename),
+      );
+      photo = `http://localhost:3000/avatars/${req.file.filename}`;
+
+    }
+  }
+
+
+
   // console.log(req.params);
-  const contactUser = { ...req.body, userId: req.user._id };
+  const contactUser = {
+    ...req.body, userId: req.user._id,
+    photo
+    // photo: req.file
+  };
 
   const result = await createContactService(contactUser);
 

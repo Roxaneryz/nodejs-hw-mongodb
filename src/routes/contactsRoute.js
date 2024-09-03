@@ -5,6 +5,7 @@ import { validateBody } from "../middlewares/validateBody.js";
 import { createContactSchema, updateContactSchema } from "../validation/contacts.js";
 import { validateID } from "../middlewares/validateID.js";
 import { authenticate } from '../middlewares/auth.js';
+import { upload } from "../middlewares/upload.js";
 
 const router = Router();
 router.use(authenticate);
@@ -12,7 +13,7 @@ router.use(authenticate);
 router.get('/contacts', ctrlWrapper (getContacts));
 router.get('/contacts/:contactId', validateID, ctrlWrapper(getContactById));
 router.post(
-  '/contacts',
+  '/contacts', upload.single("photo"),
   validateBody(createContactSchema),
   ctrlWrapper(createContact),
 );
