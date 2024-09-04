@@ -54,7 +54,7 @@ export const createContact = async (req, res) => {
   let photo = null;
 
   if (typeof req.file !== "undefined") {
-    if (process.env.ENABLE_CLOUDINERY === "true") {
+    if (process.env.ENABLE_CLOUDINARY === "true") {
       const result = await uploadToCloudinary(req.file.path);
       await fs.unlink(req.file.path);
 
@@ -65,6 +65,8 @@ export const createContact = async (req, res) => {
       photo = `http://localhost:3000/avatars/${req.file.filename}`;
 
     }
+   
+
   }
 
 
@@ -84,7 +86,28 @@ export const createContact = async (req, res) => {
 export const updateContact = async (req, res, next) => {
   const contactId = req.params.contactId;
   const userId = req.user._id;
-  const result = await updateContactService(contactId, req.body, userId);
+
+
+let photo = null;
+
+if (typeof req.file !== 'undefined') {
+  if (process.env.ENABLE_CLOUDINARY === 'true') {
+    const result = await uploadToCloudinary(req.file.path);
+    await fs.unlink(req.file.path);
+
+    photo = result.secure_url;
+  } else {
+    await fs.rename(
+      req.file.path,
+      path.resolve('src', 'public/avatars', req.file.filename),
+    );
+    photo = `http://localhost:3000/avatars/${req.file.filename}`;
+  }
+
+}
+
+
+  const result = await updateContactService(contactId, {...req.body, photo}, userId);
 
   if (!result) {
     next(createHttpError(404, 'Contact not found'));

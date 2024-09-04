@@ -15,6 +15,9 @@ import jwt from 'jsonwebtoken';
 import fs from 'node:fs';
 import handlebars from 'handlebars';
 
+// import { validateCode } from '../utils/googleOAuth2.js';
+
+
 export const registerUser = async (user) => {
     const maybeUser = await User.findOne({ email: user.email });
 
@@ -86,16 +89,21 @@ export const requestResetEmail = async (email) => {
     if (user === null) {
         throw createHttpError(404, "User not found");
     }
+    const secret = process.env.JWT_SECRET;
 
-    const resetToken = jwt.sing({
+
+    const resetToken = jwt.sign({
         sub: user._id,
         email: user.email,
+
     },
-        process.env.JWT_SECRET,
-        { expiresIn: "15m" }
+        secret,
+        { expiresIn: "5m" },
+
     );
 
-    const templateSource = fs.readFileSync(path.resolve("src/template/reset-path.hbs"), { encoding: "UTF-8" },);
+
+    const templateSource = fs.readFileSync(path.resolve("src/templates/reset-path.hbs"), { encoding: "UTF-8" },);
     const template = handlebars.compile(templateSource);
     const html = template({ name: user.name, resetToken });
 
@@ -112,10 +120,16 @@ export const requestResetEmail = async (email) => {
     }
     };
 
-export const resetPassword = async ({password, token}) => {
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+export const resetPassword = async ( password, token ) => {
 
+
+    try {
+        const secret = process.env.JWT_SECRET;
+
+console.log(token, secret);
+
+        const decoded = jwt.verify(token, secret);
+console.log(decoded);
         const user = await User.findOne({ _id: decoded.sub, email: decoded.email });
 
 
@@ -130,15 +144,57 @@ export const resetPassword = async ({password, token}) => {
 
 
     } catch (error) {
+        console.log(error);
+
         if(
             error.name === "TokenExpiredError" ||
             error.name === "JsonWebTokenError"
         )
         {
-            throw createHttpError(401, "Token error");
+            throw createHttpError(401, error);
         }
         throw error;
     }
 
 
 };
+
+
+
+// export const loginOrRegisterWithGoogle = async (code) => {
+//     const ticket = await validateCode(code);
+//     const payload = ticket.getPayload();
+//     if (typeof payload === "undefined") {
+//         throw createHttpError(401, "Unauthorized");
+//     }
+
+//     const user = await User.findOne({ email: payload.email });
+//     const password = await bcrypt.hash(crypto.randomBytes(30).toString("base64"), 10);
+
+//     if (user === null) {
+//         const createdUser = await User.create({
+//             email: payload.email,
+//             name: payload.name,
+//             password,
+//         });
+
+//         return Session.create({
+//             userId: createdUser._id,
+//             accessToken: crypto.randomBytes(30).toString('base64'),
+//             refreshToken: crypto.randomBytes(30).toString('base64'),
+//             accessTokenValidUntil: new Date(Date.now() + ACCESS_TOKEN_TTL),
+//             refreshTokenValidUntil: new Date(Date.now() + REFRESH_TOKEN_TTL),
+//         });
+//     }
+
+//     await Session.deleteOne({ userId: user._id });
+
+//     return Session.create({
+//         userId: user._id,
+//         accessToken: crypto.randomBytes(30).toString('base64'),
+//         refreshToken: crypto.randomBytes(30).toString('base64'),
+//         accessTokenValidUntil: new Date(Date.now() + ACCESS_TOKEN_TTL),
+//         refreshTokenValidUntil: new Date(Date.now() + REFRESH_TOKEN_TTL),
+//     });
+
+// };

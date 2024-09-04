@@ -12,12 +12,14 @@ router.use(authenticate);
 
 router.get('/contacts', ctrlWrapper (getContacts));
 router.get('/contacts/:contactId', validateID, ctrlWrapper(getContactById));
+
+
 router.post(
   '/contacts', upload.single("photo"),
   validateBody(createContactSchema),
   ctrlWrapper(createContact),
 );
-router.patch('/contacts/:contactId',validateID, validateBody(updateContactSchema), ctrlWrapper(updateContact));
+router.patch('/contacts/:contactId',upload.single("photo"), validateID, validateBody(updateContactSchema), ctrlWrapper(updateContact));
 router.delete('/contacts/:contactId', validateID, ctrlWrapper(deleteContact));
 
 
