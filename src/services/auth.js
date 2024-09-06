@@ -15,7 +15,7 @@ import jwt from 'jsonwebtoken';
 import fs from 'node:fs';
 import handlebars from 'handlebars';
 
-// import { validateCode } from '../utils/googleOAuth2.js';
+import { validateCode } from '../utils/googleOAuth2.js';
 
 
 export const registerUser = async (user) => {
@@ -161,40 +161,40 @@ console.log(decoded);
 
 
 
-// export const loginOrRegisterWithGoogle = async (code) => {
-//     const ticket = await validateCode(code);
-//     const payload = ticket.getPayload();
-//     if (typeof payload === "undefined") {
-//         throw createHttpError(401, "Unauthorized");
-//     }
+export const loginOrRegisterWithGoogle = async (code) => {
+    const ticket = await validateCode(code);
+    const payload = ticket.getPayload();
+    if (typeof payload === "undefined") {
+        throw createHttpError(401, "Unauthorized");
+    }
 
-//     const user = await User.findOne({ email: payload.email });
-//     const password = await bcrypt.hash(crypto.randomBytes(30).toString("base64"), 10);
+    const user = await User.findOne({ email: payload.email });
+    const password = await bcrypt.hash(crypto.randomBytes(30).toString("base64"), 10);
 
-//     if (user === null) {
-//         const createdUser = await User.create({
-//             email: payload.email,
-//             name: payload.name,
-//             password,
-//         });
+    if (user === null) {
+        const createdUser = await User.create({
+            email: payload.email,
+            name: payload.name,
+            password,
+        });
 
-//         return Session.create({
-//             userId: createdUser._id,
-//             accessToken: crypto.randomBytes(30).toString('base64'),
-//             refreshToken: crypto.randomBytes(30).toString('base64'),
-//             accessTokenValidUntil: new Date(Date.now() + ACCESS_TOKEN_TTL),
-//             refreshTokenValidUntil: new Date(Date.now() + REFRESH_TOKEN_TTL),
-//         });
-//     }
+        return Session.create({
+            userId: createdUser._id,
+            accessToken: crypto.randomBytes(30).toString('base64'),
+            refreshToken: crypto.randomBytes(30).toString('base64'),
+            accessTokenValidUntil: new Date(Date.now() + ACCESS_TOKEN_TTL),
+            refreshTokenValidUntil: new Date(Date.now() + REFRESH_TOKEN_TTL),
+        });
+    }
 
-//     await Session.deleteOne({ userId: user._id });
+    await Session.deleteOne({ userId: user._id });
 
-//     return Session.create({
-//         userId: user._id,
-//         accessToken: crypto.randomBytes(30).toString('base64'),
-//         refreshToken: crypto.randomBytes(30).toString('base64'),
-//         accessTokenValidUntil: new Date(Date.now() + ACCESS_TOKEN_TTL),
-//         refreshTokenValidUntil: new Date(Date.now() + REFRESH_TOKEN_TTL),
-//     });
+    return Session.create({
+        userId: user._id,
+        accessToken: crypto.randomBytes(30).toString('base64'),
+        refreshToken: crypto.randomBytes(30).toString('base64'),
+        accessTokenValidUntil: new Date(Date.now() + ACCESS_TOKEN_TTL),
+        refreshTokenValidUntil: new Date(Date.now() + REFRESH_TOKEN_TTL),
+    });
 
-// };
+};

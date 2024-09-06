@@ -6,7 +6,7 @@ import {
   loginSchema,
   requestResetEmailSchema,
   resetPasswordSchema,
-  // confirmOAuthSchema,
+  confirmOAuthSchema,
 } from '../validation/auth.js';
 
 
@@ -17,8 +17,8 @@ import {
   refreshController,
   requestResetEmailController,
   requestPasswordController,
-  // getOAuthURLController,
-  // confirmOAuthController,
+  getOAuthURLController,
+  confirmOAuthController,
 } from '../controllers/auth.js';
 
 
@@ -40,12 +40,12 @@ router.post("/logout", ctrlWrapper(logoutController));
 router.post("/refresh", ctrlWrapper(refreshController));
 
 
-// router.get(
-//   '/get-oauth-url',
-//   ctrlWrapper(getOAuthURLController)
-// );
+router.get(
+  '/get-oauth-url',
+  ctrlWrapper(getOAuthURLController)
+);
 
 
-// router.post("/confirm-oauth", jsonParser, validateBody(confirmOAuthSchema), ctrlWrapper(confirmOAuthController));
+router.post("/confirm-oauth", validateBody(confirmOAuthSchema), ctrlWrapper(confirmOAuthController));
 
 export default router;
