@@ -28,8 +28,8 @@ const router = express.Router();
 // const jsonParser = express.json();
 
 
-router.post("/request-reset-email", validateBody(requestResetEmailSchema), ctrlWrapper(requestResetEmailController));
-router.post("/request-reset-password",  validateBody(resetPasswordSchema), ctrlWrapper(requestPasswordController));
+router.post("/send-reset-email", validateBody(requestResetEmailSchema), ctrlWrapper(requestResetEmailController));
+router.post("/reset-pwd",  validateBody(resetPasswordSchema), ctrlWrapper(requestPasswordController));
 
 router.post("/register", validateBody(registerSchema), ctrlWrapper(registerController));
 
