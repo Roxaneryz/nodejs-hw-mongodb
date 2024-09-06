@@ -10,6 +10,7 @@ import { errorHandler } from './middlewares/errorHandler.js';
 import authRouter  from './routes/auth.js';
 import cookieParser from 'cookie-parser';
 import { authenticate } from './middlewares/auth.js';
+import { swaggerDocs } from './middlewares/swaggerDocs.js';
 
 
 export const setupServer = () => {
@@ -24,7 +25,7 @@ export const setupServer = () => {
   app.use(express.json());
   // app.use(router);
 
-  
+app.use('/api-docs', swaggerDocs());
   app.use("/avatars", express.static(path.resolve("src", "public/avatars")));
 
   app.use("/auth", authRouter);
