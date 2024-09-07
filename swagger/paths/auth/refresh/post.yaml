@@ -1,0 +1,54 @@
+tags:
+- Auth
+summary: Refresh user
+operationId: refreshUser
+description: "Refresh user"
+security:
+- bearerAuth: []
+# - cookieAuthUserId: []
+#   - cookieAuthRefreshToken: []
+requestBody:
+ request: true
+ content:
+  application/json:
+    schema:
+    type: object
+    required:
+    - refreshToken
+    properties:
+      refreshToken:
+        type: string
+        description: "Refresh Token"
+        example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVC9"
+
+responses:
+  '200':
+    description: "Contact successfully refreshed"
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: "Contact successfully refreshed"
+            data:
+              type: object
+              required:
+                - accessToken
+              properties:
+                accessToken:
+                  type: string
+                  description: "Token has been refreshed"
+                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVC9"
+'400':
+    $ref: '../../../components/responses/400.yaml'
+'500':
+    $ref: '../../../components/responses/500.yaml'
