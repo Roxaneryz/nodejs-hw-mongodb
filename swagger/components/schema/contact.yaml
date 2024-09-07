@@ -1,7 +1,7 @@
 
 type: object
 required:
-  -_id
+  - _id
   - name
   - email
   - phoneNumber
@@ -34,7 +34,7 @@ properties:
     example: "personal"
   userId:
     type: string
-    description:" Owner's id"
+    description: "Owner's id"
     example: 66b2852753d615cb5cae2053
   photo:
     type: string

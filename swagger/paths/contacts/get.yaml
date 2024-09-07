@@ -1,10 +1,10 @@
 tags:
-- Contacts
+  - Contacts
 summary: Get all the contacts
 operation: getAllContacts
 description: "Get all the contacts"
 security:
-- bearerAuth: []
+  - bearerAuth: []
 parameters:
   - in: query
     name: page
@@ -21,9 +21,9 @@ parameters:
   - in: query
     name: sortBy
     schema:
-    type: string
-    example: "name"
-    description: "All contact's fields can be mentioned. Default value - name"
+      type: string
+      example: "name"
+      description: "All contact's fields can be mentioned. Default value - name"
   - in: query
     name: sortOrder
     schema:
@@ -41,57 +41,57 @@ parameters:
 
 responses:
   "200":
-   description: "Contacts successfully found"
-   content:
+    description: "Contacts successfully found"
+    content:
       application/json:
         schema:
-         type: object
-        required:
-        - status
-        - message
-        - data
-        properties:
-          status:
-            type: integer
-            example: 200
-          message:
-           type: string
-           example: "Contact successfully found"
-          data:
-           type: object
-           required:
-                - data
-                - page
-                - perPage
-                - totalItems
-                - totalPages
-                - hasPreviousPage
-                - hasNextPage
-        properties:
-        data:
-          type: array
-          items:
-           $ref: ../../components/schemas/contact.yaml
-        page:
-          type: number
-          example: 1
-        perPage:
-          type: number
-          example: 10
-        totalItems:
-          type: number
-          example: 7
-        totalPages:
-          type: number
-          example: 2
-        hasPreviousPage:
-          type: boolean
-          example: true
-        hasNextPage:
-          type: boolean
-          example: false
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: "Contact successfully found"
+            data:
+              type: object
+              required:
+                  - data
+                  - page
+                  - perPage
+                  - totalItems
+                  - totalPages
+                  - hasPreviousPage
+                  - hasNextPage
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: ../../components/schema/contact.yaml
+                page:
+                  type: number
+                  example: 1
+                perPage:
+                  type: number
+                  example: 10
+                totalItems:
+                  type: number
+                  example: 7
+                totalPages:
+                  type: number
+                  example: 2
+                hasPreviousPage:
+                  type: boolean
+                  example: true
+                hasNextPage:
+                  type: boolean
+                  example: false
 '400':
-    $ref: '../../../components/responses4500.yaml'
+    $ref: '../../../components/responses/400.yaml'
 '401':
     $ref: '../../../components/responses/401.yaml'
 '500':

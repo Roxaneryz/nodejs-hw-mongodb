@@ -1,25 +1,23 @@
 tags:
-- Auth
+  - Auth
 summary: Refresh user
 operationId: refreshUser
 description: "Refresh user"
-security:
-- bearerAuth: []
+security: []
 # - cookieAuthUserId: []
 #   - cookieAuthRefreshToken: []
 requestBody:
- request: true
- content:
-  application/json:
-    schema:
-    type: object
-    required:
-    - refreshToken
-    properties:
-      refreshToken:
-        type: string
-        description: "Refresh Token"
-        example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVC9"
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - refreshToken
+        properties:
+          refreshToken:
+            type: string
+            description: "Refresh Token"
+            example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVC9"
 
 responses:
   '200':

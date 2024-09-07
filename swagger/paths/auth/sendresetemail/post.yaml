@@ -3,10 +3,8 @@ tags:
 summary: 'Reset email'
 operationId: sendResetEmail
 description: 'Send to reset user email'
-security:
-  - bearerAuth: []
+security: []
 requestBody:
-  required: true
   content:
     application/json:
       schema:
@@ -40,8 +38,8 @@ responses:
             data:
               type: object
   "400":
-     $ref: "../../components/responses/400.yaml"
+     $ref: "../../../components/responses/400.yaml"
   '404':
-    $ref: "../../components/responses/404.yaml"
+    $ref: "../../../components/responses/404.yaml"
   '500':
-    $ref: "../../components/responses/500.yaml"
+    $ref: "../../../components/responses/500.yaml"

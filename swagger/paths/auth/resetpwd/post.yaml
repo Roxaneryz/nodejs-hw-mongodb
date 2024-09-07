@@ -3,8 +3,8 @@ tags:
 summary: "Reset user password"
 operationId: resetPassword
 description: "Reset user password"
+security: []
 requestBody:
-  required: true
   content:
     application/json:
       schema:
@@ -46,4 +46,4 @@ responses:
   '404':
     $ref: '../../../components/responses/404.yaml'
   "500":
-  $ref: "../../../components/responses/500.yaml"
+    $ref: "../../../components/responses/500.yaml"

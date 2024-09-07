@@ -17,8 +17,8 @@ content:
         data:
           type: object
           required:
-          - message
-          - errors
+            - message
+            - errors
           properties:
             message:
               type: string
