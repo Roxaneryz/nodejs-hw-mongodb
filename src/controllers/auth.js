@@ -112,6 +112,8 @@ export const getOAuthURLController = async (req, res) => {
 
 
 export const confirmOAuthController = async (req, res) => {
+    console.log("confirmOAuthController");
+
     const { code } = req.body;
     const session = await loginOrRegisterWithGoogle(code);
     res.cookie("refreshToken", session.refreshToken, {

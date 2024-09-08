@@ -1,4 +1,4 @@
-import express from "express";
+import {Router} from "express";
 import { ctrlWrapper } from "../utils/ctrlWrapper.js";
 import { validateBody } from "../middlewares/validateBody.js";
 import {
@@ -23,7 +23,7 @@ import {
 
 
 
-const router = express.Router();
+const router = Router();
 
 // const jsonParser = express.json();
 

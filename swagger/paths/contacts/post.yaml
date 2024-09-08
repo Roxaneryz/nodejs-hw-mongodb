@@ -2,7 +2,7 @@ tags:
   - Contacts
 summary: Create contact
 operation: createContact
-description: "Create contact"
+description: 'Create contact'
 security:
   - bearerAuth: []
 
@@ -19,16 +19,16 @@ requestBody:
           name:
             description: "The contact's name"
             type: string
-            example: "Yulia Shevchenko"
+            example: 'Yulia Shevchenko'
           phoneNumber:
             description: "The contact's phone number"
             type: string
-            example: "+380000000001"
+            example: '+380000000001'
           email:
             description: "The contact's email"
             type: string
-            example: "oleh1@example.com"
-          isFavorite:
+            example: 'oleh1@example.com'
+          isFavourite:
             description: 'When the contact is marked as a favorite'
             type: boolean
             example: true
@@ -43,8 +43,8 @@ requestBody:
             format: binary
 
 responses:
-  "201":
-    description: "Contact created"
+  '201':
+    description: 'Contact created'
     content:
       application/json:
         schema:
@@ -59,7 +59,7 @@ responses:
               example: 201
             message:
               type: string
-              example: "Contact successfully created"
+              example: 'Contact successfully created'
             data:
               type: object
               $ref: '../../components/schema/contact.yaml'

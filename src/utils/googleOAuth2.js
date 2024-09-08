@@ -34,7 +34,7 @@ export const validateCode = async (code) => {
     } catch (error) {
         if (
             error.response && error.response.status >= 400 && error.response.status <= 499) {
-            throw createHttpError(401, "Unauthorized");
+            throw createHttpError(401, "Unauthorized google");
         } else {
             throw error;
         }
